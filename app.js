@@ -3,11 +3,13 @@ const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const path = require('path');
+
 const app = express();
 
-const {getHomePage} = require('./routes/index');
-const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
+const playerRoutes = require('./routes/player.routes');
+const homeRoutes = require('./routes/index.routes');
 const port = 2000;
+
 
 // create connection to database
 // the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
@@ -37,13 +39,16 @@ app.use(express.static(path.join(__dirname, 'public'))); // configure express to
 app.use(fileUpload()); // configure fileupload
 
 // routes for the app
+app.use('/', homeRoutes);
+app.use('/player', playerRoutes);
+app.get('*', function(req, res, next){
+    res.status(404);
 
-app.get('/', getHomePage);
-app.get('/add', addPlayerPage);
-app.get('/edit/:id', editPlayerPage);
-app.get('/delete/:id', deletePlayer);
-app.post('/add', addPlayer);
-app.post('/edit/:id', editPlayer);
+    res.render('404.ejs', {
+        title: "Page Not Found",
+    });
+
+});
 
 // set the app to listen on the port
 app.listen(port, () => {
