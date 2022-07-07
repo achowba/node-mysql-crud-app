@@ -8,7 +8,7 @@ const app = express();
 
 const playerRoutes = require('./routes/player.routes');
 const homeRoutes = require('./routes/index.routes');
-const port = 2000;
+const port = process.env.port || 2000;
 
 
 // create connection to database
@@ -30,7 +30,7 @@ db.connect((err) => {
 global.db = db;
 
 // configure middleware
-app.set('port', process.env.port || port); // set express to use this port
+app.set('port', port); // set express to use this port
 app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
 app.set('view engine', 'ejs'); // configure template engine
 app.use(bodyParser.urlencoded({ extended: false }));
