@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_Pooja19S_node_mysql_crud_app_1722247888165-pr-trigger-input-set
+  identifier: Build_Pooja19S_node_mysql_crud_app_1722247888165prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: NodeJsProject
+  pipeline:
+    identifier: Build_Pooja19S_node_mysql_crud_app_1722247888165
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
